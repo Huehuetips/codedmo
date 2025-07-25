@@ -1,100 +1,169 @@
+"use client"
+
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
-import { Server, Shield, Code, BookOpen, ArrowRight } from "lucide-react"
+import { Server, Layout, Mail, ArrowRight, Percent } from "lucide-react"
+import { JSX, useState } from "react"
+
+// Tipos actualizados para manejar precios mensuales y anuales
+type PricingOption = {
+  price: string;
+  annualPrice: string;
+  note?: string;
+}
+
+type ServiceItem = {
+  title: string;
+  description: string;
+  price?: string;
+  annualPrice?: string;
+  month?: PricingOption;
+  year?: PricingOption;
+  features: string[];
+  badge?: string;
+  note?: string;
+}
+
+type ServiceCategory = {
+  category: string;
+  icon: JSX.Element;
+  items: ServiceItem[];
+}
 
 export default function ServicesSection() {
-  const services = [
+  const [isAnnual, setIsAnnual] = useState(true)
+
+  const services: ServiceCategory[] = [
     {
-      category: "Hosting & Dominios",
+      category: "Hosting and Domains",
       icon: <Server className="w-8 h-8" />,
       items: [
         {
-          title: "Solo Hosting",
-          description: "Espacio web, correos corporativos, soporte",
-          price: "Desde 300/año",
-          features: ["SSL Gratuito", "99.9% Activo", "Soporte 24/7", "Acceso FTP"],
+          title: "Hosting",
+          description: "Alojamiento rápido, seguro y confiable para tu sitio",
+          month: {
+            price: "Desde $5.99/mes",
+            annualPrice: "($71.88/año)",
+          },
+          year: {
+            price: "Desde $4.37/mes",
+            annualPrice: "($52.38/año)",
+            note: "Facturación Anual",
+          },
+          features: ["5GB Almacenamiento", "SSL Gratuito", "cPanel incluido", "Soporte básico"],
         },
         {
-          title: "Combo Pro",
-          description: "Hosting + dominio personalizado",
-          price: "Desde 350/año",
-          features: ["Hosting completo", "Dominio personalizado", "Mantenimiento", "Soporte DNS"],
+          title: "Hosting + Dominio Gratis",
+          description: "Ideal para negocios y sitios web de tráfico medio",
+          price: "Desde $4.37/mes",
+          annualPrice: "($52.38/año)",
+          features: ["15GB Almacenamiento", "SSL Premium", "Backups automáticos", "Soporte prioritario"],
+          badge: "Más de 30% DESC",
+          note: "Facturación Anual",
         },
         {
-          title: "Solo Dominio",
-          description: "Registro de dominio .com, .net, .org, etc.",
-          price: "Desde 140/año",
-          features: [".com, .net, .org", "Protección WHOIS", "DNS Gratuito", "Renovación automática"],
-        },
-      ],
-    },
-    {
-      category: "Desarrollo Web",
-      icon: <Code className="w-8 h-8" />,
-      items: [
-        {
-          title: "Plantilla Web Pro",
-          description: "Ideal para negocios, portafolios, páginas simples",
-          price: "Desde Q300",
-          features: ["Diseño responsive", "Plantillas modernas", "Fácil personalización", "Listo para usar"],
-        },
-        {
-          title: "Aplicación Web a Medida",
-          description: "Sistemas, catálogos, reservas, etc.",
-          price: "Desde Q700",
-          features: ["Desarrollo personalizado", "Base de datos", "Panel administrativo", "Funcionalidades específicas"],
+          title: "Dominio",
+          description: "El dominio más popular y confiable para tu negocio",
+          price: "Desde $1.99/mes",
+          annualPrice: "($23.88/año)",
+          note: "Facturación Anual",
+          features: ["Registro por 1 año", "DNS gratuito", "Protección WHOIS", "Renovación automática"],
         },
       ],
     },
     {
-      category: "Combos a la Medida",
-      icon: <Shield className="w-8 h-8" />,
+      category: "Plantillas Web",
+      icon: <Layout className="w-8 h-8" />,
       items: [
         {
-          title: "Starter",
-          description: "Hosting + plantilla (vos tenés dominio)",
-          price: "Desde Q550",
-          features: ["Hosting incluido", "Plantilla web", "Configuración completa", "Soporte básico"],
+          title: "Landing Page",
+          description: "Página única optimizada para conversiones y captación",
+          price: "Desde $18",
+          annualPrice: "(Pago único)",
+          features: ["Diseño responsive", "Optimización SEO", "Formularios incluidos", "Carga rápida"],
         },
         {
-          title: "Completo Pro",
-          description: "Hosting + dominio + plantilla web",
-          price: "Desde Q700",
-          features: ["Todo incluido", "Hosting + dominio", "Plantilla personalizada", "Entrega funcionando"],
+          title: "Sitio Multi Página",
+          description: "Sitio web completo con múltiples secciones y páginas",
+          price: "Desde $30",
+          annualPrice: "(Pago único)",
+          features: ["Hasta 10 páginas", "Menú navegación", "Galería de imágenes"],
         },
         {
-          title: "Personalizado",
-          description: "Todo más extras a convenir",
-          price: "A cotizar",
-          features: ["Solución completa", "Extras personalizados", "Consultoría incluida", "Soporte premium"],
+          title: "Sistemas y Plataformas Web",
+          description: "Panel de control completo para gestión de contenido",
+          price: "Desde $300",
+          annualPrice: "(Pago único)",
+          features: ["Un año de Hosting GRATIS!!", "Panel admin completo", "Gestión de usuarios", "Reportes y analytics", "Base de datos"],
         },
       ],
     },
     {
-      category: "Correos Corporativos",
-      icon: <BookOpen className="w-8 h-8" />,
+      category: "Paquetes Combo",
+      icon: <Percent className="w-8 h-8" />,
       items: [
         {
-          title: "Correo con Google Workspace",
-          description: "Configuración DNS, usuarios, acceso Gmail",
-          price: "Desde Q250",
-          features: ["Configuración DNS", "Usuarios corporativos", "Acceso con Gmail", "Soporte técnico"],
+          title: "Hosting + Plantilla",
+          description: "Hosting anual con plantilla web lista para usar",
+          price: "Desde $4.70/mes",
+          annualPrice: "($56.35/año)",
+          features: ["Hosting profesional", "Plantilla a elegir", "Instalación incluida", "Personalización básica"],
+          badge: "20% DESC",
+          note: "Dominio por separado",
         },
         {
-          title: "Correo con Microsoft Exchange",
-          description: "Configuración con Outlook y herramientas MS",
-          price: "Desde Q300",
-          features: ["Configuración Exchange", "Integración Outlook", "Herramientas Microsoft", "Sincronización"],
+          title: "Paquete Completo",
+          description: "Todo incluido: hosting, dominio y plantilla Landing",
+          price: "Desde $4.99/mes",
+          annualPrice: "($59.89/año)",
+          features: ["Todo incluido", "Sin costos ocultos", "Página Levantada", "Soporte completo"],
+          badge: "Más de 35% DESC",
+          note: "Paquete más popular",
+        },
+      ],
+    },
+    {
+      category: "Servicios de Integración",
+      icon: <Mail className="w-8 h-8" />,
+      items: [
+        {
+          title: "Google Workspace",
+          description: "Configuración completa de correos corporativos con Google",
+          price: "Desde $180",
+          annualPrice: "(Hasta 15 usuarios)",
+          features: ["Configuración DNS", "Cuentas corporativas", "Gmail empresarial", "Drive compartido"],
         },
         {
-          title: "Paquete Empresarial",
-          description: "Ambos o múltiples dominios con mantenimiento",
-          price: "Desde Q500",
-          features: ["Múltiples dominios", "Ambas plataformas", "Mantenimiento incluido", "Soporte empresarial"],
+          title: "Microsoft Exchange",
+          description: "Integración profesional con herramientas Microsoft",
+          price: "Desde $180",
+          annualPrice: "(Hasta 15 usuarios)",
+          features: ["Configuración Exchange", "Outlook empresarial", "Teams incluido", "OneDrive corporativo"],
+        },
+        {
+          badge: "Más de 10% DESC",
+          title: "Integración Mixta",
+          description: "Configuración de ambas plataformas para máxima flexibilidad",
+          price: "Desde $320",
+          annualPrice: "(Hasta 15 usuarios)",
+          features: ["Google + Microsoft", "Sincronización completa", "Migración de datos", "Soporte especializado"],
         },
       ],
     },
   ]
+
+  // Función para obtener el precio según el toggle (solo para el primer servicio "Hosting")
+  const getPrice = (service: ServiceItem, categoryIndex: number, serviceIndex: number) => {
+    // Solo el primer servicio de la primera categoría usa el toggle
+    if (categoryIndex === 0 && serviceIndex === 0 && service.month && service.year) {
+      return isAnnual ? service.year : service.month
+    }
+    return {
+      price: service.price || "",
+      annualPrice: service.annualPrice || "",
+      note: service.note
+    }
+  }
 
   return (
     <section id="servicios" className="py-20 bg-white dark:bg-gray-900">
@@ -104,9 +173,38 @@ export default function ServicesSection() {
             Nuestros{" "}
             <span className="bg-gradient-to-r from-cyan-600 to-blue-600 bg-clip-text text-transparent">Servicios</span>
           </h2>
-          <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
+          <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto mb-8">
             Tu espacio profesional en internet, desarrollo web y soluciones completas para tu negocio digital
           </p>
+
+          {/* Toggle de precios para Hosting */}
+          <div className="flex items-center justify-center mb-8">
+            <div className="bg-gray-100 dark:bg-gray-800 rounded-lg p-1 inline-flex">
+              <button
+                onClick={() => setIsAnnual(false)}
+                className={`px-6 py-2 rounded-md text-sm font-medium transition-all duration-200 ${
+                  !isAnnual
+                    ? "bg-white dark:bg-gray-700 text-gray-900 dark:text-white shadow-sm"
+                    : "text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white"
+                }`}
+              >
+                Mensual
+              </button>
+              <button
+                onClick={() => setIsAnnual(true)}
+                className={`px-6 py-2 rounded-md text-sm font-medium transition-all duration-200 ${
+                  isAnnual
+                    ? "bg-white dark:bg-gray-700 text-gray-900 dark:text-white shadow-sm"
+                    : "text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white"
+                }`}
+              >
+                Anual
+                <span className="ml-2 text-xs bg-green-100 dark:bg-green-900 text-green-600 dark:text-green-400 px-2 py-1 rounded-full">
+                  Ahorro
+                </span>
+              </button>
+            </div>
+          </div>
         </div>
 
         {services.map((category, categoryIndex) => (
@@ -121,41 +219,70 @@ export default function ServicesSection() {
             </div>
 
             <div className="grid md:grid-cols-3 gap-8">
-              {category.items.map((service, serviceIndex) => (
-                <Card
-                  key={serviceIndex}
-                  className="relative overflow-hidden border-2 hover:border-blue-200 dark:hover:border-blue-800 transition-all duration-300 hover:shadow-lg dark:bg-gray-800 dark:border-gray-700"
-                >
-                  <CardHeader>
-                    <CardTitle className="text-xl text-gray-900 dark:text-white">{service.title}</CardTitle>
-                    <CardDescription className="text-gray-600 dark:text-gray-400">{service.description}</CardDescription>
-                    <div className="text-2xl font-bold bg-gradient-to-r from-cyan-600 to-blue-600 bg-clip-text text-transparent">
-                      {service.price}
-                    </div>
-                  </CardHeader>
-                  <CardContent>
-                    <ul className="space-y-2 mb-6">
-                      {service.features.map((feature, featureIndex) => (
-                        <li key={featureIndex} className="flex items-center text-gray-600 dark:text-gray-400">
-                          <div className="w-2 h-2 bg-gradient-to-r from-cyan-500 to-blue-500 rounded-full mr-3"></div>
-                          {feature}
-                        </li>
-                      ))}
-                    </ul>
-                    <Button className="w-full bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-700 hover:to-blue-700">
-                      Solicitar Información
-                      <ArrowRight className="ml-2 h-4 w-4" />
-                    </Button>
-                  </CardContent>
-                </Card>
-              ))}
+              {category.items.map((service, serviceIndex) => {
+                const currentPrice = getPrice(service, categoryIndex, serviceIndex)
+                
+                return (
+                  <Card
+                    key={serviceIndex}
+                    className="relative overflow-hidden border-2 hover:border-blue-200 dark:hover:border-blue-800 transition-all duration-300 hover:shadow-lg dark:bg-gray-800 dark:border-gray-700"
+                  >
+                    {/* Badge de descuento */}
+                    {service.badge && (
+                      <div className="absolute top-4 right-4 bg-gradient-to-r from-green-500 to-emerald-500 text-white px-3 py-1 rounded-full text-xs font-bold">
+                        {service.badge}
+                      </div>
+                    )}
+                    
+                    <CardHeader>
+                      <CardTitle className="text-xl text-gray-900 dark:text-white">{service.title}</CardTitle>
+                      <CardDescription className="text-gray-600 dark:text-gray-400 min-h-[48px]">
+                        {service.description}
+                      </CardDescription>
+                      <div className="space-y-1">
+                        <div className="text-2xl font-bold bg-gradient-to-r from-cyan-600 to-blue-600 bg-clip-text text-transparent">
+                          {currentPrice.price}
+                        </div>
+                        <div className="text-sm text-gray-500 dark:text-gray-400">
+                          {currentPrice.annualPrice}
+                        </div>
+                        {currentPrice.note && (
+                          <div className="text-xs text-blue-600 dark:text-blue-400 font-medium">
+                            {currentPrice.note}
+                          </div>
+                        )}
+                      </div>
+                    </CardHeader>
+                    <CardContent>
+                      <div className="space-y-4">
+                        {/* Features */}
+                        <div className="min-h-[120px]">
+                          <ul className="space-y-2">
+                            {service.features.map((feature, featureIndex) => (
+                              <li key={featureIndex} className="flex items-center text-gray-600 dark:text-gray-400">
+                                <div className="w-2 h-2 bg-gradient-to-r from-cyan-500 to-blue-500 rounded-full mr-3"></div>
+                                {feature}
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                        
+                        <Button className="w-full bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-700 hover:to-blue-700">
+                          Solicitar Información
+                          <ArrowRight className="ml-2 h-4 w-4" />
+                        </Button>
+                      </div>
+                    </CardContent>
+                  </Card>
+                )
+              })}
             </div>
           </div>
         ))}
 
         {/* Próximamente */}
-        <div className="text-center bg-gradient-to-r from-cyan-50 to-blue-50 dark:from-gray-800 dark:to-gray-700 rounded-2xl p-8">
-          <BookOpen className="w-16 h-16 mx-auto mb-4 text-blue-600 dark:text-blue-400" />
+        {/* <div className="text-center bg-gradient-to-r from-cyan-50 to-blue-50 dark:from-gray-800 dark:to-gray-700 rounded-2xl p-8">
+          <Layout className="w-16 h-16 mx-auto mb-4 text-blue-600 dark:text-blue-400" />
           <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">Próximamente: Formación Técnica</h3>
           <p className="text-gray-600 dark:text-gray-300 mb-6 max-w-2xl mx-auto">
             Cursos especializados en desarrollo web y ciberseguridad. Aprende de la mano de expertos con experiencia
@@ -164,7 +291,7 @@ export default function ServicesSection() {
           <Button variant="outline" className="border-blue-600 text-blue-600 hover:bg-blue-50 dark:border-blue-400 dark:text-blue-400 dark:hover:bg-gray-800 bg-transparent">
             Notificarme cuando esté disponible
           </Button>
-        </div>
+        </div> */}
       </div>
     </section>
   )

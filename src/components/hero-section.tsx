@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button"
-import { ArrowRight, Shield, Code, BookOpen } from "lucide-react"
+import { ArrowRight, Server, Globe, Layout, Mail, Shield, Settings } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
 
@@ -26,27 +26,70 @@ export default function HeroSection() {
             </p>
 
             {/* Value Propositions */}
-            <div className="grid md:grid-cols-3 gap-6 mb-8">
+            <div className="grid md:grid-cols-4 gap-4 mb-8">
               <div className="flex flex-col items-center lg:items-start p-4">
               <div className="w-12 h-12 bg-gradient-to-r from-cyan-500 to-blue-500 rounded-lg flex items-center justify-center mb-3">
-                <Shield className="w-6 h-6 text-white" />
+                <Server className="w-6 h-6 text-white" />
               </div>
-              <h3 className="font-semibold text-gray-900 dark:text-white mb-2">Hosting Seguro</h3>
-              <p className="text-gray-600 dark:text-gray-400 text-sm">Alojamiento rápido y protegido para tu proyecto</p>
+              <h3 className="font-semibold text-gray-900 dark:text-white mb-2">Hosting Premium</h3>
+              <p className="text-gray-600 dark:text-gray-400 text-sm">Alojamiento rápido, seguro y confiable para tu sitio</p>
               </div>
               <div className="flex flex-col items-center lg:items-start p-4">
               <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-purple-500 rounded-lg flex items-center justify-center mb-3">
-                <BookOpen className="w-6 h-6 text-white" />
+                <Globe className="w-6 h-6 text-white" />
               </div>
-              <h3 className="font-semibold text-gray-900 dark:text-white mb-2">Dominios Personalizados</h3>
-              <p className="text-gray-600 dark:text-gray-400 text-sm">Elige el dominio perfecto para tu marca</p>
+              <h3 className="font-semibold text-gray-900 dark:text-white mb-2">Dominios</h3>
+              <p className="text-gray-600 dark:text-gray-400 text-sm">Paquetes completos de dominio con certificado SSL</p>
               </div>
               <div className="flex flex-col items-center lg:items-start p-4">
-              <div className="w-12 h-12 bg-gradient-to-r from-purple-500 to-cyan-500 rounded-lg flex items-center justify-center mb-3">
-                <Code className="w-6 h-6 text-white" />
+              <div className="w-12 h-12 bg-gradient-to-r from-purple-500 to-pink-500 rounded-lg flex items-center justify-center mb-3">
+                <Layout className="w-6 h-6 text-white" />
               </div>
-              <h3 className="font-semibold text-gray-900 dark:text-white mb-2">Páginas Web</h3>
-              <p className="text-gray-600 dark:text-gray-400 text-sm">Desarrollo de sitios web modernos y funcionales</p>
+              <h3 className="font-semibold text-gray-900 dark:text-white mb-2">Plantillas & Webs</h3>
+              <p className="text-gray-600 dark:text-gray-400 text-sm">Diseños profesionales y desarrollo personalizado</p>
+              </div>
+              <div className="flex flex-col items-center lg:items-start p-4">
+              <div className="w-12 h-12 bg-gradient-to-r from-pink-500 to-cyan-500 rounded-lg flex items-center justify-center mb-3">
+                <Mail className="w-6 h-6 text-white" />
+              </div>
+              <h3 className="font-semibold text-gray-900 dark:text-white mb-2">Email Empresarial</h3>
+              <p className="text-gray-600 dark:text-gray-400 text-sm">Integración Google Workspace y Microsoft Exchange</p>
+              </div>
+            </div>
+
+            {/* Partners & Technologies */}
+            <div className="mb-8">
+              <p className="text-sm text-gray-500 dark:text-gray-400 text-center lg:text-left mb-4 font-medium">
+                Trabajamos con las mejores tecnologías:
+              </p>
+              <div className="flex flex-wrap items-center justify-center lg:justify-start gap-6">
+                {/* Google Workspace */}
+                <div className="flex items-center space-x-2 bg-white dark:bg-gray-800 rounded-lg px-4 py-2 shadow-md border border-gray-200 dark:border-gray-700">
+                  <div className="w-6 h-6 bg-gradient-to-r from-blue-500 to-green-500 rounded flex items-center justify-center">
+                    <span className="text-white text-xs font-bold">G</span>
+                  </div>
+                  <span className="text-sm font-medium text-gray-700 dark:text-gray-300">Google Workspace</span>
+                </div>
+                
+                {/* Microsoft Exchange */}
+                <div className="flex items-center space-x-2 bg-white dark:bg-gray-800 rounded-lg px-4 py-2 shadow-md border border-gray-200 dark:border-gray-700">
+                  <div className="w-6 h-6 bg-gradient-to-r from-blue-600 to-blue-800 rounded flex items-center justify-center">
+                    <span className="text-white text-xs font-bold">M</span>
+                  </div>
+                  <span className="text-sm font-medium text-gray-700 dark:text-gray-300">Microsoft 365</span>
+                </div>
+                
+                {/* cPanel */}
+                <div className="flex items-center space-x-2 bg-white dark:bg-gray-800 rounded-lg px-4 py-2 shadow-md border border-gray-200 dark:border-gray-700">
+                  <Settings className="w-5 h-5 text-orange-600" />
+                  <span className="text-sm font-medium text-gray-700 dark:text-gray-300">cPanel</span>
+                </div>
+                
+                {/* SSL Certificate */}
+                <div className="flex items-center space-x-2 bg-white dark:bg-gray-800 rounded-lg px-4 py-2 shadow-md border border-gray-200 dark:border-gray-700">
+                  <Shield className="w-5 h-5 text-green-600" />
+                  <span className="text-sm font-medium text-gray-700 dark:text-gray-300">SSL Incluido</span>
+                </div>
               </div>
             </div>
 
