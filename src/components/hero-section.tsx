@@ -1,9 +1,18 @@
+"use client"
+
 import { Button } from "@/components/ui/button"
 import { ArrowRight, Server, Globe, Layout, Mail, Shield, Settings } from "lucide-react"
 import Image from "next/image"
-import Link from "next/link"
 
 export default function HeroSection() {
+  // Función para smooth scroll
+  const handleNavClick = (href: string) => {
+    const element = document.querySelector(href)
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' })
+    }
+  }
+
   return (
     <section
       id="inicio"
@@ -96,24 +105,20 @@ export default function HeroSection() {
             {/* CTA Buttons */}
             <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start items-center">
                 <Button
-                asChild
+                onClick={() => handleNavClick("#servicios")}
                 size="lg"
                 className="bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-700 hover:to-blue-700 text-white px-8 py-3 text-lg font-semibold flex items-center"
                 >
-                <Link href="#servicios">
                   Ver Servicios
                   <ArrowRight className="ml-2 h-5 w-5" />
-                </Link>
                 </Button>
                 <Button
-                asChild
+                onClick={() => handleNavClick("#contacto")}
                 variant="outline"
                 size="lg"
                 className="border-blue-600 text-blue-600 hover:bg-blue-50 dark:border-blue-400 dark:text-blue-400 dark:hover:bg-gray-800 px-8 py-3 text-lg font-semibold"
                 >
-                <Link href="#contacto">
                   Habla con Nosotros
-                </Link>
                 </Button>
             </div>
           </div>

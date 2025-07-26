@@ -33,7 +33,48 @@ type ServiceCategory = {
 export default function ServicesSection() {
   const [isAnnual, setIsAnnual] = useState(true)
 
+  // Función para navegar al formulario de contacto
+  const scrollToContact = () => {
+    const contactSection = document.getElementById('contacto')
+    if (contactSection) {
+      contactSection.scrollIntoView({ behavior: 'smooth' })
+    }
+  }
+
   const services: ServiceCategory[] = [
+    {
+      category: "🌟 Ofertas Destacadas",
+      icon: <Percent className="w-8 h-8" />,
+      items: [
+        {
+          title: "Paquete Completo",
+          description: "Todo incluido: hosting, dominio y plantilla Landing",
+          price: "Desde $4.99/mes",
+          annualPrice: "($59.89/año)",
+          features: ["Todo incluido", "Sin costos ocultos", "Página Levantada", "Soporte completo", "Dominio .com GRATIS", "Hosting profesional", "SSL incluido"],
+          badge: "🏆 MÁS DE 35% DESC",
+          note: "¡La mejor oferta!",
+        },
+        {
+          title: "Hosting + Dominio Gratis",
+          description: "Ideal para negocios y sitios web de tráfico medio",
+          price: "Desde $4.37/mes",
+          annualPrice: "($52.38/año)",
+          features: ["Todo lo que incluye el Hosting", "Dominio .com gratis", "Certificado SSL gratuito", "Soporte avanzado", "Subdominios ilimitados", "cPanel incluido"],
+          badge: "💎 MÁS DE 30% DESC",
+          note: "Facturación Anual",
+        },
+        {
+          title: "Hosting + Plantilla",
+          description: "Hosting anual con plantilla web lista para usar",
+          price: "Desde $4.70/mes",
+          annualPrice: "($56.35/año)",
+          features: ["Hosting profesional", "Plantilla a elegir", "Instalación incluida", "Personalización básica", "Soporte técnico"],
+          badge: "20% DESC",
+          note: "Dominio por separado",
+        },
+      ],
+    },
     {
       category: "Hosting and Domains",
       icon: <Server className="w-8 h-8" />,
@@ -50,24 +91,15 @@ export default function ServicesSection() {
             annualPrice: "($52.38/año)",
             note: "Facturación Anual",
           },
-          features: ["5GB Almacenamiento", "SSL Gratuito", "cPanel incluido", "Soporte básico"],
-        },
-        {
-          title: "Hosting + Dominio Gratis",
-          description: "Ideal para negocios y sitios web de tráfico medio",
-          price: "Desde $4.37/mes",
-          annualPrice: "($52.38/año)",
-          features: ["15GB Almacenamiento", "SSL Premium", "Backups automáticos", "Soporte prioritario"],
-          badge: "Más de 30% DESC",
-          note: "Facturación Anual",
+          features: ["Almacenamiento Ilimitado", "2GB Ram", "cPanel incluido", "Soporte básico", "Cuentas de correo ilimitadas", "Bases de datos ilimitadas"],
         },
         {
           title: "Dominio",
-          description: "El dominio más popular y confiable para tu negocio",
+          description: "El nombre ideal para tu presencia en línea",
           price: "Desde $1.99/mes",
           annualPrice: "($23.88/año)",
           note: "Facturación Anual",
-          features: ["Registro por 1 año", "DNS gratuito", "Protección WHOIS", "Renovación automática"],
+          features: ["Registro por 1 año", "DNS gratuito", "Protección WHOIS", "Renovación automática", "SSL gratuito"],
         },
       ],
     },
@@ -94,31 +126,7 @@ export default function ServicesSection() {
           description: "Panel de control completo para gestión de contenido",
           price: "Desde $300",
           annualPrice: "(Pago único)",
-          features: ["Un año de Hosting GRATIS!!", "Panel admin completo", "Gestión de usuarios", "Reportes y analytics", "Base de datos"],
-        },
-      ],
-    },
-    {
-      category: "Paquetes Combo",
-      icon: <Percent className="w-8 h-8" />,
-      items: [
-        {
-          title: "Hosting + Plantilla",
-          description: "Hosting anual con plantilla web lista para usar",
-          price: "Desde $4.70/mes",
-          annualPrice: "($56.35/año)",
-          features: ["Hosting profesional", "Plantilla a elegir", "Instalación incluida", "Personalización básica"],
-          badge: "20% DESC",
-          note: "Dominio por separado",
-        },
-        {
-          title: "Paquete Completo",
-          description: "Todo incluido: hosting, dominio y plantilla Landing",
-          price: "Desde $4.99/mes",
-          annualPrice: "($59.89/año)",
-          features: ["Todo incluido", "Sin costos ocultos", "Página Levantada", "Soporte completo"],
-          badge: "Más de 35% DESC",
-          note: "Paquete más popular",
+          features: ["Desarrollo a la medida", "Integración con Base de datos", "Funcionalidades avanzadas", "Soporte técnico"],
         },
       ],
     },
@@ -154,8 +162,8 @@ export default function ServicesSection() {
 
   // Función para obtener el precio según el toggle (solo para el primer servicio "Hosting")
   const getPrice = (service: ServiceItem, categoryIndex: number, serviceIndex: number) => {
-    // Solo el primer servicio de la primera categoría usa el toggle
-    if (categoryIndex === 0 && serviceIndex === 0 && service.month && service.year) {
+    // Solo el primer servicio de la segunda categoría (Hosting and Domains) usa el toggle
+    if (categoryIndex === 1 && serviceIndex === 0 && service.month && service.year) {
       return isAnnual ? service.year : service.month
     }
     return {
@@ -208,7 +216,7 @@ export default function ServicesSection() {
         </div>
 
         {services.map((category, categoryIndex) => (
-          <div key={categoryIndex} className="mb-16">
+          <div key={categoryIndex} className="mb-16" id={`servicio-${categoryIndex + 1}`}>
             <div className="flex items-center justify-center mb-8">
               <div className="flex items-center space-x-3">
                 <div className="w-12 h-12 bg-gradient-to-r from-cyan-500 to-blue-500 rounded-lg flex items-center justify-center text-white">
@@ -218,60 +226,101 @@ export default function ServicesSection() {
               </div>
             </div>
 
-            <div className="grid md:grid-cols-3 gap-8">
+            <div className={`grid gap-8 ${
+              category.items.length === 2 
+                ? "md:grid-cols-2 max-w-4xl mx-auto" 
+                : "md:grid-cols-3"
+            }`}>
               {category.items.map((service, serviceIndex) => {
                 const currentPrice = getPrice(service, categoryIndex, serviceIndex)
+                const isHighlighted = categoryIndex === 0 && (serviceIndex === 0 || serviceIndex === 1)
                 
                 return (
                   <Card
                     key={serviceIndex}
-                    className="relative overflow-hidden border-2 hover:border-blue-200 dark:hover:border-blue-800 transition-all duration-300 hover:shadow-lg dark:bg-gray-800 dark:border-gray-700"
+                    className={`relative overflow-hidden border-2 transition-all duration-300 hover:shadow-lg dark:bg-gray-800 flex flex-col ${
+                      isHighlighted 
+                        ? "border-yellow-400 shadow-xl scale-105 bg-gradient-to-br from-amber-50/30 to-orange-50/30 dark:from-amber-900/20 dark:to-orange-900/20 hover:scale-110" 
+                        : "hover:border-blue-200 dark:hover:border-blue-800 dark:border-gray-700"
+                    }`}
+                    style={isHighlighted ? {
+                      boxShadow: "0 20px 25px -5px rgba(251, 191, 36, 0.1), 0 10px 10px -5px rgba(251, 146, 60, 0.04)"
+                    } : {}}
                   >
                     {/* Badge de descuento */}
                     {service.badge && (
-                      <div className="absolute top-4 right-4 bg-gradient-to-r from-green-500 to-emerald-500 text-white px-3 py-1 rounded-full text-xs font-bold">
+                      <div className={`absolute top-4 right-4 px-3 py-1 rounded-full text-xs font-bold ${
+                        isHighlighted 
+                          ? "bg-gradient-to-r from-yellow-500 to-orange-500 text-white animate-pulse" 
+                          : "bg-gradient-to-r from-green-500 to-emerald-500 text-white"
+                      }`}>
                         {service.badge}
                       </div>
                     )}
                     
-                    <CardHeader>
-                      <CardTitle className="text-xl text-gray-900 dark:text-white">{service.title}</CardTitle>
-                      <CardDescription className="text-gray-600 dark:text-gray-400 min-h-[48px]">
+                    <CardHeader className="flex-shrink-0">
+                      <CardTitle className={`text-xl ${isHighlighted ? "text-orange-900 dark:text-orange-100" : "text-gray-900 dark:text-white"}`}>
+                        {service.title}
+                      </CardTitle>
+                      <CardDescription className={`min-h-[48px] ${
+                        isHighlighted ? "text-orange-700 dark:text-orange-200" : "text-gray-600 dark:text-gray-400"
+                      }`}>
                         {service.description}
                       </CardDescription>
                       <div className="space-y-1">
-                        <div className="text-2xl font-bold bg-gradient-to-r from-cyan-600 to-blue-600 bg-clip-text text-transparent">
+                        <div className={`text-2xl font-bold bg-clip-text text-transparent ${
+                          isHighlighted 
+                            ? "bg-gradient-to-r from-orange-600 to-yellow-600" 
+                            : "bg-gradient-to-r from-cyan-600 to-blue-600"
+                        }`}>
                           {currentPrice.price}
                         </div>
-                        <div className="text-sm text-gray-500 dark:text-gray-400">
+                        <div className={`text-sm ${
+                          isHighlighted ? "text-orange-600 dark:text-orange-300" : "text-gray-500 dark:text-gray-400"
+                        }`}>
                           {currentPrice.annualPrice}
                         </div>
                         {currentPrice.note && (
-                          <div className="text-xs text-blue-600 dark:text-blue-400 font-medium">
+                          <div className={`text-xs font-medium ${
+                            isHighlighted ? "text-orange-700 dark:text-orange-200" : "text-blue-600 dark:text-blue-400"
+                          }`}>
                             {currentPrice.note}
                           </div>
                         )}
                       </div>
                     </CardHeader>
-                    <CardContent>
-                      <div className="space-y-4">
+                    <CardContent className="flex-grow flex flex-col">
+                      <div className="flex-grow">
                         {/* Features */}
-                        <div className="min-h-[120px]">
+                        <div className="mb-6">
                           <ul className="space-y-2">
                             {service.features.map((feature, featureIndex) => (
-                              <li key={featureIndex} className="flex items-center text-gray-600 dark:text-gray-400">
-                                <div className="w-2 h-2 bg-gradient-to-r from-cyan-500 to-blue-500 rounded-full mr-3"></div>
+                              <li key={featureIndex} className={`flex items-center ${
+                                isHighlighted ? "text-orange-700 dark:text-orange-200" : "text-gray-600 dark:text-gray-400"
+                              }`}>
+                                <div className={`w-2 h-2 rounded-full mr-3 ${
+                                  isHighlighted 
+                                    ? "bg-gradient-to-r from-orange-500 to-yellow-500" 
+                                    : "bg-gradient-to-r from-cyan-500 to-blue-500"
+                                }`}></div>
                                 {feature}
                               </li>
                             ))}
                           </ul>
                         </div>
-                        
-                        <Button className="w-full bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-700 hover:to-blue-700">
-                          Solicitar Información
-                          <ArrowRight className="ml-2 h-4 w-4" />
-                        </Button>
                       </div>
+                        
+                      <Button 
+                        className={`w-full mt-auto ${
+                          isHighlighted 
+                            ? "bg-gradient-to-r from-orange-600 to-yellow-600 hover:from-orange-700 hover:to-yellow-700 text-white font-bold py-3 shadow-lg" 
+                            : "bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-700 hover:to-blue-700"
+                        }`}
+                        onClick={scrollToContact}
+                      >
+                        {isHighlighted ? "¡Solicitar Ahora!" : "Solicitar Información"}
+                        <ArrowRight className="ml-2 h-4 w-4" />
+                      </Button>
                     </CardContent>
                   </Card>
                 )

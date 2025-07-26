@@ -1,6 +1,6 @@
 import Link from "next/link"
 import Image from "next/image"
-import { Facebook, Twitter, Instagram, Linkedin, Github, Mail } from "lucide-react"
+import { Facebook, Instagram, Github, Mail } from "lucide-react"
 
 export default function Footer() {
   const currentYear = new Date().getFullYear()
@@ -33,10 +33,8 @@ export default function Footer() {
   }
 
   const socialLinks = [
-    { name: "Facebook", icon: Facebook, href: "#" },
-    { name: "Twitter", icon: Twitter, href: "#" },
-    { name: "Instagram", icon: Instagram, href: "#" },
-    { name: "LinkedIn", icon: Linkedin, href: "#" },
+    { name: "Facebook", icon: Facebook, href: "https://www.facebook.com/profile.php?id=61578671524932" },
+    { name: "Instagram", icon: Instagram, href: "https://www.instagram.com/codedmo.dev/" },
     { name: "GitHub", icon: Github, href: "#" },
   ]
 
@@ -56,7 +54,7 @@ export default function Footer() {
               />
             </Link>
             <p className="text-gray-400 dark:text-gray-500 mb-6 max-w-md">
-              Soluciones tecnológicas con visión crítica y segura. Desarrollamos, protegemos y compartimos conocimiento.
+              Desarrollo web moderno y soluciones digitales personalizadas. Transformo ideas en experiencias digitales únicas.
             </p>
             <div className="flex space-x-4">
               {socialLinks.map((social) => (
@@ -154,7 +152,7 @@ export default function Footer() {
         {/* Copyright */}
         <div className="border-t border-gray-800 dark:border-gray-900 mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
           <p className="text-gray-400 dark:text-gray-500 text-sm">© {currentYear} CODEDMO. Todos los derechos reservados.</p>
-          <p className="text-gray-400 dark:text-gray-500 text-sm mt-2 md:mt-0">Hecho con ❤️ y mucho ☕ por el equipo de CODEDMO</p>
+          <p className="text-gray-400 dark:text-gray-500 text-sm mt-2 md:mt-0">Hecho con ❤️ y mucho ☕ en Guatemala</p>
         </div>
       </div>
     </footer>
